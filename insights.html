@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Ideas Behind the Work. — POWERS Manufacturing Performance Consulting</title>
+  <link rel="stylesheet" href="https://use.typekit.net/dhv8kja.css" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'proxima-nova','Proxima Nova',-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+      background: #ffffff;
+      min-height: 100vh;
+    }
+    body { padding-top: 84px; }
+    .nav-desktop { display: flex !important; }
+    .nav-mobile  { display: none !important; }
+    .nav-tagline { display: inline !important; }
+    @media (max-width: 767px) {
+      .nav-desktop { display: none !important; }
+      .nav-mobile  { display: flex !important; }
+      .nav-tagline { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="site-header-root" style="position:fixed;top:0;left:0;right:0;z-index:200;"></div>
+
+<section style="background:#183a61;min-height:320px;display:flex;align-items:center;">
+  <div style="max-width:1280px;margin:0 auto;width:100%;padding:96px 48px;">
+    <div style="font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#eabb71;font-family:inherit;margin-bottom:20px;">Insights</div>
+    <h1 style="font-size:clamp(28px,3.5vw,48px);font-weight:800;line-height:1.1;color:#ffffff;font-family:inherit;max-width:720px;">The Ideas Behind the Work.</h1>
+  </div>
+</section>
+
+<div id="site-footer-root"></div>
+
+<script type="text/babel">
+const { useState, useRef, useEffect } = React;
+
+const FONT = "'proxima-nova','Proxima Nova',-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif";
+
+const NC = {
+  navy:    '#183a61',
+  navy900: '#0d2442',
+  navy400: '#4a6a8a',
+  gold:    '#eabb71',
+  gold50:  '#fdf6e8',
+  gold600: '#c9963e',
+  white:   '#ffffff',
+  gray50:  '#f5f5f3',
+  gray100: '#e8e8e4',
+  gray400: '#888884',
+};
+
+/* ── NAV DATA ── */
+const RESULTS_LEFT = {
+  topLinks: [
+    { label: 'Our Approach', href: 'our-approach.html' },
+  ],
+  groupLabel: 'Expertise Areas',
+  subLinks: [
+    { label: 'Operational Readiness and Discipline',            href: 'operational-readiness.html' },
+    { label: 'Frontline Capability and Workforce Readiness',    href: 'frontline-leadership.html' },
+    { label: 'Equipment Reliability and Maintenance Performance', href: 'equipment-reliability.html' },
+    { label: 'Supply Chain and Distribution Performance',       href: 'supply-chain.html' },
+  ],
+};
+const RESULTS_RIGHT = [
+  { label: 'Industries Served', href: 'industries-served.html' },
+  { label: 'Case Studies',      href: 'case-studies.html' },
+];
+const ABOUT_LINKS = [
+  { label: 'History',       href: 'history.html' },
+  { label: 'Leadership',    href: 'leadership.html' },
+  { label: 'Company News',  href: 'company-news.html' },
+  { label: 'Careers',       href: 'careers.html' },
+];
+
+/* ── MEGA LINK ── */
+function NMegaLink({ href, children }) {
+  const [h, setH] = useState(false);
+  return (
+    <a href={href} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{
+        display: 'block', padding: '7px 0',
+        fontSize: 14, fontWeight: 400,
+        color: h ? NC.gold : NC.navy,
+        textDecoration: 'none', fontFamily: FONT,
+        transition: 'color 130ms ease',
+        borderLeft: h ? `2px solid ${NC.gold}` : '2px solid transparent',
+        paddingLeft: h ? 8 : 0,
+      }}>{children}</a>
+  );
+}
+
+function NMegaSubLink({ href, children }) {
+  const [h, setH] = useState(false);
+  return (
+    <a href={href} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{
+        display: 'block', padding: '6px 0 6px 16px',
+        fontSize: 13, fontWeight: 300,
+        color: h ? NC.gold : NC.navy,
+        textDecoration: 'none', fontFamily: FONT,
+        transition: 'color 130ms ease',
+        borderLeft: `1px solid ${h ? NC.gold : NC.gray100}`,
+      }}>{children}</a>
+  );
+}
+
+/* ── NAV LINK ── */
+function NNavLink({ label, hasMega, isOpen, onMouseEnter, onMouseLeave, href }) {
+  const [h, setH] = useState(false);
+  const active = h || isOpen;
+  return (
+    <div style={{ position: 'relative' }}
+      onMouseEnter={() => { setH(true); onMouseEnter && onMouseEnter(); }}
+      onMouseLeave={() => { setH(false); onMouseLeave && onMouseLeave(); }}
+    >
+      <a href={href || '#'} style={{
+        display: 'inline-flex', alignItems: 'center', gap: 4,
+        fontSize: 13, fontWeight: 400,
+        color: active ? NC.gold : NC.navy,
+        textDecoration: 'none', fontFamily: FONT,
+        letterSpacing: '0.01em', transition: 'color 150ms ease',
+        padding: '4px 0', whiteSpace: 'nowrap',
+      }}>
+        {label}
+        {hasMega && (
+          <svg width="9" height="5" viewBox="0 0 9 5" fill="none"
+            style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 180ms ease', marginTop: 1 }}>
+            <path d="M1 1L4.5 4L8 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        )}
+      </a>
+    </div>
+  );
+}
+
+/* ── GHOST BUTTON ── */
+function NGhostBtn() {
+  const [h, setH] = useState(false);
+  return (
+    <a href="contact.html" onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{
+        fontSize: 13, fontWeight: 400,
+        color: h ? NC.gold : NC.navy,
+        border: `1px solid ${h ? NC.gold : NC.navy}`,
+        padding: '7px 20px', textDecoration: 'none',
+        fontFamily: FONT, letterSpacing: '0.01em',
+        transition: 'color 150ms ease, border-color 150ms ease',
+        whiteSpace: 'nowrap', lineHeight: 1,
+      }}>Let's Talk</a>
+  );
+}
+
+/* ── SEARCH BTN ── */
+function NSearchBtn() {
+  const [h, setH] = useState(false);
+  return (
+    <button onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)} aria-label="Search"
+      style={{
+        width: 27, height: 27,
+        border: `1px solid ${h ? NC.gold : NC.gray100}`,
+        borderRadius: 4, background: h ? NC.gold50 : 'transparent',
+        color: h ? NC.navy : NC.navy400, cursor: 'pointer',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        transition: 'all 160ms ease', flexShrink: 0,
+      }}>
+      <svg width="13" height="13" viewBox="0 0 15 15" fill="none">
+        <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" strokeWidth="1.5"/>
+        <line x1="10" y1="10" x2="14" y2="14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    </button>
+  );
+}
+
+/* ── MOBILE DRAWER ── */
+function NDrawer({ open, onClose }) {
+  const [openSection, setOpenSection] = useState(null);
+
+  return (
+    <>
+      <div onClick={onClose} style={{
+        position: 'fixed', inset: 0,
+        background: 'rgba(24,58,97,0.35)',
+        opacity: open ? 1 : 0,
+        pointerEvents: open ? 'auto' : 'none',
+        transition: 'opacity 250ms ease', zIndex: 300,
+      }} />
+      <div style={{
+        position: 'fixed', top: 0, right: 0, bottom: 0,
+        width: 'min(320px, 85vw)',
+        background: NC.white,
+        transform: open ? 'translateX(0)' : 'translateX(100%)',
+        transition: 'transform 300ms cubic-bezier(0.22,1,0.36,1)',
+        zIndex: 301, display: 'flex', flexDirection: 'column', overflowY: 'auto',
+      }}>
+        {/* Top */}
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '20px 24px', borderBottom: `1px solid ${NC.gold}`,
+        }}>
+          <a href="index.html" style={{ textDecoration: 'none' }}>
+            <img src="uploads/powers-logo-refined-2026.png" alt="POWERS" style={{ height: 40, width: 'auto' }} />
+          </a>
+          <button onClick={onClose} aria-label="Close"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: NC.navy, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+              <line x1="15" y1="1" x2="1" y2="15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        {/* Nav */}
+        <nav style={{ flex: 1 }}>
+          {/* Results accordion */}
+          {[
+            {
+              label: 'Results',
+              items: [
+                { type: 'link', label: 'Our Approach', href: 'our-approach.html' },
+                { type: 'group', label: 'Expertise Areas', children: [
+                  { label: 'Operational Readiness and Discipline',            href: 'operational-readiness.html' },
+                  { label: 'Frontline Capability and Workforce Readiness',    href: 'frontline-leadership.html' },
+                  { label: 'Equipment Reliability and Maintenance Performance', href: 'equipment-reliability.html' },
+                  { label: 'Supply Chain and Distribution Performance',       href: 'supply-chain.html' },
+                ]},
+                { type: 'link', label: 'Industries Served', href: 'industries-served.html' },
+                { type: 'link', label: 'Case Studies',      href: 'case-studies.html' },
+              ],
+            },
+            {
+              label: 'About',
+              items: [
+                { type: 'link', label: 'History',      href: 'history.html' },
+                { type: 'link', label: 'Leadership',   href: 'leadership.html' },
+                { type: 'link', label: 'Company News', href: 'company-news.html' },
+                { type: 'link', label: 'Careers',      href: 'careers.html' },
+              ],
+            },
+          ].map((section) => (
+            <div key={section.label}>
+              <button
+                onClick={() => setOpenSection(openSection === section.label ? null : section.label)}
+                style={{
+                  width: '100%', background: 'none', border: 'none',
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '15px 24px', color: NC.navy, fontSize: 15, fontWeight: 400,
+                  cursor: 'pointer', fontFamily: FONT, borderBottom: `1px solid ${NC.gray100}`,
+                }}>
+                {section.label}
+                <svg width="9" height="5" viewBox="0 0 9 5" fill="none"
+                  style={{ transform: openSection === section.label ? 'rotate(180deg)' : 'none', transition: 'transform 180ms ease' }}>
+                  <path d="M1 1L4.5 4L8 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              {openSection === section.label && (
+                <div style={{ background: NC.gray50, borderBottom: `1px solid ${NC.gray100}` }}>
+                  {section.items.map((item, i) => (
+                    item.type === 'link' ? (
+                      <a key={i} href={item.href}
+                        style={{ display: 'block', padding: '11px 24px 11px 32px', fontSize: 14, fontWeight: 400, color: NC.navy, textDecoration: 'none', fontFamily: FONT, borderBottom: `1px solid ${NC.gray100}` }}>
+                        {item.label}
+                      </a>
+                    ) : (
+                      <div key={i}>
+                        <div style={{ padding: '10px 24px 6px 32px', fontSize: 14, fontWeight: 400, color: NC.navy, fontFamily: FONT }}>{item.label}</div>
+                        {item.children.map((child, ci) => (
+                          <a key={ci} href={child.href}
+                            style={{ display: 'block', padding: '9px 24px 9px 44px', fontSize: 13, fontWeight: 300, color: NC.navy, textDecoration: 'none', fontFamily: FONT, borderBottom: ci < item.children.length - 1 ? `1px solid ${NC.gray100}` : 'none' }}>
+                            {child.label}
+                          </a>
+                        ))}
+                      </div>
+                    )
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+
+          <a href="insights.html"
+            style={{ display: 'block', padding: '15px 24px', fontSize: 15, fontWeight: 400, color: NC.navy, textDecoration: 'none', fontFamily: FONT, borderBottom: `1px solid ${NC.gray100}` }}>
+            Insights
+          </a>
+          <a href="contact.html"
+            style={{ display: 'block', padding: '15px 24px', fontSize: 15, fontWeight: 500, color: NC.gold, textDecoration: 'none', fontFamily: FONT }}>
+            Let's Talk
+          </a>
+        </nav>
+      </div>
+    </>
+  );
+}
+
+/* ── HEADER ── */
+function SiteHeader() {
+  const [openMega, setOpenMega] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const closeTimer = useRef(null);
+  const open   = (name) => { clearTimeout(closeTimer.current); setOpenMega(name); };
+  const sched  = ()     => { closeTimer.current = setTimeout(() => setOpenMega(null), 140); };
+  const cancel = ()     => clearTimeout(closeTimer.current);
+
+  return (
+    <header style={{ background: NC.white, borderBottom: `1px solid ${NC.gold}`, fontFamily: FONT, overflow: 'visible' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 48px', height: 84, display: 'flex', alignItems: 'center', gap: 48 }}>
+
+        {/* Logo + tagline */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexShrink: 0 }}>
+          <a href="index.html" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+            <img src="uploads/powers-logo-refined-2026.png" alt="POWERS" style={{ height: 57, width: 'auto', display: 'block' }} />
+          </a>
+          <span style={{ fontSize: 12, fontWeight: 300, fontStyle: 'italic', letterSpacing: '0.01em', color: NC.navy400, lineHeight: 1, whiteSpace: 'nowrap', fontFamily: FONT }} className="nav-tagline">
+            Make Performance Stick
+          </span>
+        </div>
+
+        <div style={{ flex: 1 }} />
+
+        {/* Desktop nav */}
+        <nav className="nav-desktop" onMouseLeave={sched} onMouseEnter={cancel}
+          style={{ display: 'flex', alignItems: 'center', gap: 44, position: 'relative' }}>
+
+          {/* Results */}
+          <div style={{ position: 'relative' }} onMouseEnter={() => open('results')}>
+            <NNavLink label="Results" hasMega isOpen={openMega === 'results'} />
+          </div>
+
+          {/* About */}
+          <div style={{ position: 'relative' }} onMouseEnter={() => open('about')}>
+            <NNavLink label="About" hasMega isOpen={openMega === 'about'} />
+          </div>
+
+          <NNavLink label="Insights" href="insights.html" onMouseEnter={() => setOpenMega(null)} />
+          <NGhostBtn />
+        </nav>
+
+        <div className="nav-desktop" style={{ flexShrink: 0 }}><NSearchBtn /></div>
+
+        {/* Mobile hamburger */}
+        <button className="nav-mobile" onClick={() => setDrawerOpen(true)} aria-label="Open menu"
+          style={{ width: 40, height: 40, background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: NC.navy, padding: 0 }}>
+          <svg width="22" height="15" viewBox="0 0 22 15" fill="none">
+            <line x1="0" y1="1.75" x2="22" y2="1.75" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round"/>
+            <line x1="0" y1="7.5"  x2="22" y2="7.5"  stroke="currentColor" strokeWidth="3.5" strokeLinecap="round"/>
+            <line x1="0" y1="13.25" x2="22" y2="13.25" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      {/* Mega menus */}
+      <div onMouseEnter={cancel} onMouseLeave={sched} style={{ position: 'relative', marginTop: -1 }}>
+        {/* Results panel */}
+        <div style={{
+          position: 'absolute', top: 0, left: 0, right: 0,
+          display: 'flex', justifyContent: 'center',
+          pointerEvents: openMega === 'results' ? 'auto' : 'none', zIndex: 200,
+        }}>
+          <div style={{
+            width: 640, background: NC.white,
+            border: `1px solid ${NC.gray100}`, borderTop: `1px solid ${NC.gold}`,
+            boxShadow: '0 8px 24px rgba(24,58,97,0.08)',
+            opacity: openMega === 'results' ? 1 : 0,
+            transform: openMega === 'results' ? 'translateY(0)' : 'translateY(-4px)',
+            transition: 'opacity 180ms ease, transform 180ms ease',
+            display: 'grid', gridTemplateColumns: '1fr 1fr',
+          }}>
+            {/* Left col */}
+            <div style={{ padding: '28px 28px 32px', borderRight: `1px solid ${NC.gray100}`, display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {RESULTS_LEFT.topLinks.map((l, i) => <NMegaLink key={i} href={l.href}>{l.label}</NMegaLink>)}
+              <div style={{ height: 16 }} />
+              <div style={{ fontSize: 14, fontWeight: 400, color: NC.navy, fontFamily: FONT, padding: '7px 0', marginBottom: 2 }}>
+                {RESULTS_LEFT.groupLabel}
+              </div>
+              {RESULTS_LEFT.subLinks.map((l, i) => <NMegaSubLink key={i} href={l.href}>{l.label}</NMegaSubLink>)}
+            </div>
+            {/* Right col */}
+            <div style={{ padding: '28px 28px 32px', display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {RESULTS_RIGHT.map((l, i) => (
+                <React.Fragment key={i}>
+                  <NMegaLink href={l.href}>{l.label}</NMegaLink>
+                  {i < RESULTS_RIGHT.length - 1 && <div style={{ height: 8 }} />}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* About panel */}
+        <div style={{
+          position: 'absolute', top: 0, left: 0, right: 0,
+          display: 'flex', justifyContent: 'center',
+          pointerEvents: openMega === 'about' ? 'auto' : 'none', zIndex: 200,
+        }}>
+          <div style={{
+            width: 260, background: NC.white,
+            border: `1px solid ${NC.gray100}`, borderTop: `1px solid ${NC.gold}`,
+            boxShadow: '0 8px 24px rgba(24,58,97,0.08)',
+            opacity: openMega === 'about' ? 1 : 0,
+            transform: openMega === 'about' ? 'translateY(0)' : 'translateY(-4px)',
+            transition: 'opacity 180ms ease, transform 180ms ease',
+          }}>
+            <div style={{ padding: '20px 24px 24px', display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {ABOUT_LINKS.map((l, i) => <NMegaLink key={i} href={l.href}>{l.label}</NMegaLink>)}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <NDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+    </header>
+  );
+}
+
+/* ── FOOTER ── */
+function NFooterLink({ href, children }) {
+  const [h, setH] = useState(false);
+  return (
+    <a href={href || '#'} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{ display: 'block', fontSize: 13, fontWeight: 300, color: h ? '#ffffff' : 'rgba(255,255,255,0.70)', textDecoration: 'none', fontFamily: FONT, padding: '4px 0', transition: 'color 150ms ease' }}>
+      {children}
+    </a>
+  );
+}
+
+function NFooterColHeader({ children }) {
+  return <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#ffffff', fontFamily: FONT, marginBottom: 16 }}>{children}</div>;
+}
+
+function NLinkedIn() {
+  const [h, setH] = useState(false);
+  return (
+    <a href="#" aria-label="POWERS on LinkedIn" onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{ display: 'inline-block', marginTop: 20, color: h ? NC.gold : '#ffffff', transition: 'color 160ms ease' }}>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <rect x="1" y="1" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.4"/>
+        <rect x="4" y="8" width="2.2" height="7" fill="currentColor"/>
+        <circle cx="5.1" cy="5.5" r="1.3" fill="currentColor"/>
+        <path d="M9 8v7M9 11c0-1.66 1.34-3 3-3s3 1.34 3 3v4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+      </svg>
+    </a>
+  );
+}
+
+function NFooterGhostBtn() {
+  const [h, setH] = useState(false);
+  return (
+    <a href="contact.html" onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{ display: 'inline-block', marginTop: 20, fontSize: 13, fontWeight: 500, color: h ? NC.navy : NC.gold, background: h ? NC.gold : 'transparent', border: `1px solid ${NC.gold}`, padding: '9px 20px', textDecoration: 'none', fontFamily: FONT, transition: 'color 150ms ease, background 150ms ease', whiteSpace: 'nowrap' }}>
+      Start a Conversation
+    </a>
+  );
+}
+
+function NLegalLink({ href, children }) {
+  const [h, setH] = useState(false);
+  return (
+    <a href={href || '#'} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{ fontSize: 11, fontWeight: 300, color: h ? 'rgba(255,255,255,0.60)' : 'rgba(255,255,255,0.40)', textDecoration: 'none', fontFamily: FONT, transition: 'color 150ms ease' }}>
+      {children}
+    </a>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer style={{ background: '#0d2442', fontFamily: FONT, borderTop: '1px solid #eabb71' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: '72px 48px 64px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '48px 40px' }}>
+
+        {/* Brand */}
+        <div style={{ maxWidth: 280 }}>
+          <a href="index.html" style={{ textDecoration: 'none', display: 'inline-block' }}>
+            <img src="uploads/powers-logo-refined-for-dark-backgrounds-2026.png" alt="POWERS" style={{ width: 140, height: 'auto', display: 'block', marginBottom: 16 }} />
+          </a>
+          <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: '0.14em', color: NC.gold, fontFamily: FONT, marginBottom: 14 }}>Make Performance Stick.</div>
+          <p style={{ fontSize: 13, fontWeight: 300, lineHeight: 1.65, color: 'rgba(255,255,255,0.60)', fontFamily: FONT, margin: 0 }}>
+            Management consulting for manufacturers who need performance that holds across teams, shifts, sites, and holdings.
+          </p>
+          <NLinkedIn />
+        </div>
+
+        {/* Results */}
+        <div>
+          <NFooterColHeader>Results</NFooterColHeader>
+          <NFooterLink href="our-approach.html">Our Approach</NFooterLink>
+          <NFooterLink href="operational-readiness.html">Expertise Areas</NFooterLink>
+          <NFooterLink href="industries-served.html">Industries Served</NFooterLink>
+          <NFooterLink href="case-studies.html">Case Studies</NFooterLink>
+        </div>
+
+        {/* About */}
+        <div>
+          <NFooterColHeader>About</NFooterColHeader>
+          <NFooterLink href="history.html">History</NFooterLink>
+          <NFooterLink href="leadership.html">Leadership</NFooterLink>
+          <NFooterLink href="company-news.html">Company News</NFooterLink>
+          <NFooterLink href="careers.html">Careers</NFooterLink>
+        </div>
+
+        {/* Contact */}
+        <div>
+          <NFooterColHeader>Let's Talk</NFooterColHeader>
+          <a href="tel:+16789714711" style={{ fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.70)', textDecoration: 'none', fontFamily: FONT, padding: '4px 0', display: 'block' }}>+1 678-971-4711</a>
+          <a href="mailto:info@thepowerscompany.com" style={{ fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.70)', textDecoration: 'none', fontFamily: FONT, padding: '4px 0', display: 'block' }}>info@thepowerscompany.com</a>
+          <div style={{ fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.70)', fontFamily: FONT, padding: '4px 0', lineHeight: 1.5 }}>1801 Peachtree St NE, Suite 200<br />Atlanta, GA 30309</div>
+          <NFooterGhostBtn />
+        </div>
+      </div>
+
+      {/* Legal bar */}
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 48px 40px' }}>
+        <div style={{ height: 1, background: 'rgba(234,187,113,0.20)', marginBottom: 20 }} />
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px 12px' }}>
+          <span style={{ fontSize: 11, fontWeight: 300, color: 'rgba(255,255,255,0.40)', fontFamily: FONT }}>Copyright 2025 The POWERS Company, Inc. All Rights Reserved.</span>
+          <span style={{ color: 'rgba(255,255,255,0.20)', fontSize: 11 }}>|</span>
+          <NLegalLink>Sitemap</NLegalLink>
+          <span style={{ color: 'rgba(255,255,255,0.20)', fontSize: 11 }}>|</span>
+          <NLegalLink>Privacy Policy</NLegalLink>
+          <span style={{ color: 'rgba(255,255,255,0.20)', fontSize: 11 }}>|</span>
+          <span style={{ fontSize: 11, fontWeight: 300, color: 'rgba(255,255,255,0.40)', fontFamily: FONT }}>Powered by <NLegalLink>Method Marketing</NLegalLink></span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ── MOUNT ── */
+ReactDOM.createRoot(document.getElementById('site-header-root')).render(<SiteHeader />);
+ReactDOM.createRoot(document.getElementById('site-footer-root')).render(<SiteFooter />);
+
+</script>
+</body>
+</html>
