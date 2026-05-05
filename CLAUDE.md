@@ -46,7 +46,7 @@
 ### Typography Rules
 | Element | Size | Weight | Color |
 |---|---|---|---|
-| Eyebrow | 11px | 500 | Gold-400 #eabb71, uppercase, letter-spacing 0.18em |
+| Eyebrow | 12px | 500 | Gold-400 #eabb71, uppercase, letter-spacing 0.18em, margin-bottom 24px (DESIGN STANDARD — matches homepage hero "Manufacturing Performance Consulting" + section eyebrows like "The Manufacturing Moment") |
 | H1 (light bg) | 44–64px | 700–800 | Navy-800 #183a61 |
 | H1 (navy bg) | 44–64px | 700–800 | White #ffffff |
 | H2 / Subhead | 30px | 700 | Navy-400 #4a6a8a — NEVER navy-800 |
@@ -70,7 +70,42 @@
 
 ---
 
-## Site Architecture
+## Homepage Card Sections — Data Strategy
+
+### Case Study Cards (Section 6) and Insights Cards (Section 7)
+Both sections display exactly 3 cards on the homepage. In the HTML prototype phase these are hardcoded placeholder content — curated manually by Gary/Method when real content is ready.
+
+In the Faust.js build, Patrik replaces these with dynamic WPGraphQL queries:
+
+**Case Studies — 3 most recent:**
+```graphql
+query FeaturedCaseStudies {
+  caseStudies(first: 3, where: { orderby: { field: DATE, order: DESC }}) {
+    nodes {
+      title
+      acfFields { headlineResult, industry, summary }
+    }
+  }
+}
+```
+
+**Insights — 3 most recent:**
+```graphql
+query FeaturedInsights {
+  posts(first: 3, where: { orderby: { field: DATE, order: DESC }}) {
+    nodes {
+      title
+      excerpt
+      categories { nodes { name } }
+      slug
+    }
+  }
+}
+```
+
+Once live, publishing a new case study or insight in WordPress automatically promotes it to the homepage. No code changes required.
+
+---
 | Page | File | Type | Status |
 |---|---|---|---|
 | Homepage | index.html | Static | ✅ Live v0.1.4 |
@@ -198,6 +233,21 @@
 ## Version Log
 
 ## Version Log
+
+### v0.1.15 — 2026-05-05
+**Deploy 15 — History + Careers pages built**
+- history.html: full content build per approved prompt. Hero (navy, eyebrow + H1 + subhead), Section 1 Where It Started (white, narrow column), Section 2 How We Evolved (gray-50, narrow column), Section 3 A New Chapter (white, split layout with image placeholder), Section 4 The Constants (navy, narrow column with quote list — 5 founding principles separated by gold rules at 30% opacity), Section 5 CTA (navy-900, "Read the Case Studies" link → case-studies.html)
+- careers.html: full content build per approved prompt. Hero (navy), Section 1 What The Work Actually Looks Like (white, narrow column), Section 2 Who Thrives Here (gray-50, split layout with image placeholder), Section 3 What POWERS Offers (white, narrow column), Section 4 CTA (navy-900, gold "View Open Positions" button → placeholder #)
+- Eyebrow size: 12px (matches homepage hero "Manufacturing Performance Consulting" and "The Manufacturing Moment" — the design standard). CLAUDE.md typography table corrected from 11px to 12px in same deploy.
+- Image placeholders use striped SVG pattern with monospace label per default aesthetic, on navy background to read as professional/dark
+- Section pattern reused: outer element no horizontal padding, inner wrapper max-width 1280px with padding 96px 48px (per global rule v0.1.11)
+- Fully responsive: split layouts collapse to single column at 1023px; section padding tightens to 64px 24px at 767px
+- Header + footer: existing React components unchanged on both pages
+- Meta descriptions added to both pages
+
+**Open questions to confirm:**
+1. Image placeholders: confirm replacement images for (a) Atlanta skyline / 1801 Peachtree NE on history Section 3, and (b) manufacturing floor / consultant on shift on careers Section 2.
+2. Careers CTA button "View Open Positions" wired to placeholder href="#" — pending client direction on LinkedIn Jobs vs iSolveHire destination.
 
 ### v0.1.14 — 2026-05-04
 **Deploy 14**
