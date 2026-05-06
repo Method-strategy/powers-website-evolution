@@ -95,8 +95,17 @@ function MegaMenuResults({ visible }) {
         <MegaLink href="approach.html">Approach</MegaLink>
         <div style={{ height: 8 }} />
         <MegaLink href="discovery-process.html">Discovery Process</MegaLink>
-        <div style={{ height: 16 }} />
-        {/* Expertise Areas — label only, styled as nav link */}
+        <div style={{ height: 8 }} />
+        <MegaLink href="industries-served.html">Industries Served</MegaLink>
+        <div style={{ height: 8 }} />
+        <MegaLink href="case-studies.html">Case Studies</MegaLink>
+      </div>
+
+      {/* Right col */}
+      <div style={{
+        padding: '28px 28px 32px',
+        display: 'flex', flexDirection: 'column', gap: 4,
+      }}>
         <div style={{
           fontSize: 14,
           fontWeight: 400,
@@ -115,16 +124,6 @@ function MegaMenuResults({ visible }) {
         ].map((item, i) => (
           <MegaSubLink key={i} href={item.href}>{item.label}</MegaSubLink>
         ))}
-      </div>
-
-      {/* Right col */}
-      <div style={{
-        padding: '28px 28px 32px',
-        display: 'flex', flexDirection: 'column', gap: 4,
-      }}>
-        <MegaLink href="industries-served.html">Industries Served</MegaLink>
-        <div style={{ height: 8 }} />
-        <MegaLink href="case-studies.html">Case Studies</MegaLink>
       </div>
     </div>
   );
@@ -151,9 +150,18 @@ function MegaMenuResultsStatic() {
         <MegaLink href="approach.html">Approach</MegaLink>
         <div style={{ height: 8 }} />
         <MegaLink href="discovery-process.html">Discovery Process</MegaLink>
-        <div style={{ height: 16 }} />
+        <div style={{ height: 8 }} />
+        <MegaLink href="industries-served.html">Industries Served</MegaLink>
+        <div style={{ height: 8 }} />
+        <MegaLink href="case-studies.html">Case Studies</MegaLink>
+      </div>
+      <div style={{
+        padding: '28px 28px 32px',
+        display: 'flex', flexDirection: 'column', gap: 4,
+      }}>
         <div style={{
-          fontSize: 14, fontWeight: 400,
+          fontSize: 14,
+          fontWeight: 400,
           color: C.navy,
           fontFamily: 'inherit', marginBottom: 2, padding: '7px 0',
         }}>Expertise Areas</div>
@@ -165,14 +173,6 @@ function MegaMenuResultsStatic() {
         ].map((item, i) => (
           <MegaSubLink key={i} href={item.href}>{item.label}</MegaSubLink>
         ))}
-      </div>
-      <div style={{
-        padding: '28px 28px 32px',
-        display: 'flex', flexDirection: 'column', gap: 4,
-      }}>
-        <MegaLink href="industries-served.html">Industries Served</MegaLink>
-        <div style={{ height: 8 }} />
-        <MegaLink href="case-studies.html">Case Studies</MegaLink>
       </div>
     </div>
   );
@@ -662,11 +662,20 @@ function Header() {
               display: 'flex', flexDirection: 'column', gap: 4,
             }}>
               <MegaLink href="approach.html">Approach</MegaLink>
-        <div style={{ height: 8 }} />
-        <MegaLink href="discovery-process.html">Discovery Process</MegaLink>
-              <div style={{ height: 16 }} />
+              <div style={{ height: 8 }} />
+              <MegaLink href="discovery-process.html">Discovery Process</MegaLink>
+              <div style={{ height: 8 }} />
+              <MegaLink href="industries-served.html">Industries Served</MegaLink>
+              <div style={{ height: 8 }} />
+              <MegaLink href="case-studies.html">Case Studies</MegaLink>
+            </div>
+            <div style={{
+              padding: '28px 28px 32px',
+              display: 'flex', flexDirection: 'column', gap: 4,
+            }}>
               <div style={{
-                fontSize: 14, fontWeight: 400,
+                fontSize: 14,
+                fontWeight: 400,
                 color: C.navy,
                 fontFamily: 'inherit', marginBottom: 2, padding: '7px 0',
               }}>Expertise Areas</div>
@@ -675,15 +684,9 @@ function Header() {
                 { label: 'Frontline Capability and Workforce Readiness',    href: 'frontline-leadership.html' },
                 { label: 'Equipment Reliability and Maintenance Performance', href: 'equipment-reliability.html' },
                 { label: 'Supply Chain and Distribution Performance',       href: 'supply-chain.html' },
-              ].map((item, i) => <MegaSubLink key={i} href={item.href}>{item.label}</MegaSubLink>)}
-            </div>
-            <div style={{
-              padding: '28px 28px 32px',
-              display: 'flex', flexDirection: 'column', gap: 4,
-            }}>
-              <MegaLink href="industries-served.html">Industries Served</MegaLink>
-              <div style={{ height: 8 }} />
-              <MegaLink href="case-studies.html">Case Studies</MegaLink>
+              ].map((item, i) => (
+                <MegaSubLink key={i} href={item.href}>{item.label}</MegaSubLink>
+              ))}
             </div>
           </div>
         </div>
