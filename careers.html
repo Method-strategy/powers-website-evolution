@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Careers — POWERS Manufacturing Performance Consulting v0.1.15</title>
+  <title>Careers — POWERS Manufacturing Performance Consulting v0.1.16</title>
   <meta name="description" content="POWERS consultants work on the floor, in the shifts, inside the operations where performance breaks down. If you want to make a real difference in American manufacturing, this is where that work happens." />
   <link rel="stylesheet" href="https://use.typekit.net/dhv8kja.css" />
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -32,6 +32,9 @@
 <div id="site-header-root" style="position:fixed;top:0;left:0;right:0;z-index:200;"></div>
 
 <style>
+  /* Typography QC — global balancing per CLAUDE.md standing instruction */
+  h1, h2, h3, .pw-eyebrow { text-wrap: balance; }
+  @media (max-width: 767px) { .hero-headline br { display: none; } }
   .pw-eyebrow { font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#eabb71; font-family:inherit; margin-bottom:24px; }
   .pw-section-outer { width:100%; }
   .pw-section-inner { max-width:1280px; margin:0 auto; padding:96px 48px; }

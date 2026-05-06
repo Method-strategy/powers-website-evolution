@@ -234,6 +234,14 @@ Once live, publishing a new case study or insight in WordPress automatically pro
 
 ## Version Log
 
+### v0.1.16 — 2026-05-06
+**Deploy 16 — Typography Quality Control implementation**
+- New "Typography Quality Control" section added to CLAUDE.md as standing instruction (appended after Version Log; nothing else disturbed)
+- Global rule applied to index.html, history.html, careers.html: `h1, h2, h3, .eyebrow { text-wrap: balance; }` for automatic line distribution on all headlines and subheads
+- Mobile reflow rule added: `@media (max-width: 767px) { .hero-headline br { display: none; } }` so decorative desktop breaks don't carry into narrow widths
+- history.html hero H1 "Built From the Floor Up. Since 2004." rewritten with deliberate `<br>` between sentences at the natural typographic break point, tagged `.hero-headline` class so mobile suppresses the break
+- Retrofit complete on all three target pages per standing instruction
+
 ### v0.1.15 — 2026-05-05
 **Deploy 15 — History + Careers pages built**
 - history.html: full content build per approved prompt. Hero (navy, eyebrow + H1 + subhead), Section 1 Where It Started (white, narrow column), Section 2 How We Evolved (gray-50, narrow column), Section 3 A New Chapter (white, split layout with image placeholder), Section 4 The Constants (navy, narrow column with quote list — 5 founding principles separated by gold rules at 30% opacity), Section 5 CTA (navy-900, "Read the Case Studies" link → case-studies.html)
@@ -382,3 +390,47 @@ Once live, publishing a new case study or insight in WordPress automatically pro
 - Header height: 84px
 - Tagline: "Make Performance Stick"
 - Mega menu gold top border flush with header bottom border
+
+---
+
+## Typography Quality Control
+
+**STANDING INSTRUCTION FOR ALL PAGES**
+
+### Text Wrap Balancing
+Apply `text-wrap: balance` to all headline and subhead elements globally. Add to the stylesheet for H1, H2, H3, and any element using the eyebrow style. This is the baseline protection against uneven line distribution.
+
+```css
+h1, h2, h3, .eyebrow {
+  text-wrap: balance;
+}
+```
+
+### Controlled Breaks on Hero Headlines
+For hero headlines where the natural break point matters, use a deliberate `<br>` tag at the correct typographic break. Example: "Built From the Floor Up.`<br>`Since 2004." not "Built From the Floor Up. Since`<br>`2004."
+
+On mobile, suppress decorative `<br>` tags using:
+
+```css
+@media (max-width: 767px) {
+  .hero-headline br {
+    display: none;
+  }
+}
+```
+
+This allows mobile text to reflow naturally without inheriting a desktop break that creates awkward three-line stacks at narrow widths.
+
+### Widow and Orphan Watching
+Before delivering any page, visually check every headline, subhead, and body paragraph at desktop width (1280px) for:
+
+- Single words on the last line of any headline or subhead. Adjust max-width by 20-40px or flag for copy review. Never leave a single word on the last line of a headline or subhead.
+- Single lines of body copy carried to a new column or new section. Flag these as orphans and adjust padding or copy length to resolve.
+
+`text-wrap: balance` handles most cases automatically but does not catch everything. Manual review is required before every deploy.
+
+### Copy Edit as First Resort
+If a headline widow cannot be resolved by `text-wrap: balance` or a `<br>` tag without breaking the design, flag it for copy review rather than forcing a layout change. A one-word edit to the headline is always preferable to compromising the grid or the spacing system.
+
+### Retrofit Existing Pages
+Apply `text-wrap: balance` to the global stylesheet immediately so it takes effect across all existing pages. Check index.html, history.html, and careers.html for any headline widows at desktop width and resolve using the methods above before the next deploy.
