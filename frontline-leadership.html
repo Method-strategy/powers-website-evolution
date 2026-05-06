@@ -60,7 +60,8 @@ const NC = {
 /* ── NAV DATA ── */
 const RESULTS_LEFT = {
   topLinks: [
-    { label: 'Our Approach', href: 'our-approach.html' },
+    { label: 'Approach',          href: 'approach.html' },
+    { label: 'Discovery Process', href: 'discovery-process.html' },
   ],
   groupLabel: 'Expertise Areas',
   subLinks: [
@@ -225,7 +226,8 @@ function NDrawer({ open, onClose }) {
             {
               label: 'Results',
               items: [
-                { type: 'link', label: 'Our Approach', href: 'our-approach.html' },
+                { type: 'link', label: 'Approach',          href: 'approach.html' },
+                { type: 'link', label: 'Discovery Process', href: 'discovery-process.html' },
                 { type: 'group', label: 'Expertise Areas', children: [
                   { label: 'Operational Readiness and Discipline',            href: 'operational-readiness.html' },
                   { label: 'Frontline Capability and Workforce Readiness',    href: 'frontline-leadership.html' },
@@ -490,7 +492,8 @@ function SiteFooter() {
         {/* Results */}
         <div>
           <NFooterColHeader>Results</NFooterColHeader>
-          <NFooterLink href="our-approach.html">Our Approach</NFooterLink>
+          <NFooterLink href="approach.html">Approach</NFooterLink>
+          <NFooterLink href="discovery-process.html">Discovery Process</NFooterLink>
           <NFooterLink href="operational-readiness.html">Expertise Areas</NFooterLink>
           <NFooterLink href="industries-served.html">Industries Served</NFooterLink>
           <NFooterLink href="case-studies.html">Case Studies</NFooterLink>

@@ -18,20 +18,21 @@ const NC = {
 /* ── NAV DATA ── */
 const RESULTS_LEFT = {
   topLinks: [
-    { label: 'Our Approach', href: 'our-approach.html' },
-  ],
-  groupLabel: 'Expertise Areas',
-  subLinks: [
-    { label: 'Operational Readiness and Discipline',            href: 'operational-readiness.html' },
-    { label: 'Frontline Capability and Workforce Readiness',    href: 'frontline-leadership.html' },
-    { label: 'Equipment Reliability and Maintenance Performance', href: 'equipment-reliability.html' },
-    { label: 'Supply Chain and Distribution Performance',       href: 'supply-chain.html' },
+    { label: 'Approach',          href: 'approach.html' },
+    { label: 'Discovery Process', href: 'discovery-process.html' },
+    { label: 'Industries Served', href: 'industries-served.html' },
+    { label: 'Case Studies',      href: 'case-studies.html' },
   ],
 };
-const RESULTS_RIGHT = [
-  { label: 'Industries Served', href: 'industries-served.html' },
-  { label: 'Case Studies',      href: 'case-studies.html' },
-];
+const RESULTS_RIGHT = {
+  groupLabel: 'Expertise Areas',
+  subLinks: [
+    { label: 'Operational Readiness and Discipline',              href: 'operational-readiness.html' },
+    { label: 'Frontline Capability and Workforce Readiness',      href: 'frontline-leadership.html' },
+    { label: 'Equipment Reliability and Maintenance Performance', href: 'equipment-reliability.html' },
+    { label: 'Supply Chain and Distribution Performance',         href: 'supply-chain.html' },
+  ],
+};
 const ABOUT_LINKS = [
   { label: 'History',       href: 'history.html' },
   { label: 'Leadership',    href: 'leadership.html' },
@@ -183,15 +184,16 @@ function NDrawer({ open, onClose }) {
             {
               label: 'Results',
               items: [
-                { type: 'link', label: 'Our Approach', href: 'our-approach.html' },
-                { type: 'group', label: 'Expertise Areas', children: [
-                  { label: 'Operational Readiness and Discipline',            href: 'operational-readiness.html' },
-                  { label: 'Frontline Capability and Workforce Readiness',    href: 'frontline-leadership.html' },
-                  { label: 'Equipment Reliability and Maintenance Performance', href: 'equipment-reliability.html' },
-                  { label: 'Supply Chain and Distribution Performance',       href: 'supply-chain.html' },
-                ]},
+                { type: 'link', label: 'Approach',          href: 'approach.html' },
+                { type: 'link', label: 'Discovery Process', href: 'discovery-process.html' },
                 { type: 'link', label: 'Industries Served', href: 'industries-served.html' },
                 { type: 'link', label: 'Case Studies',      href: 'case-studies.html' },
+                { type: 'group', label: 'Expertise Areas', children: [
+                  { label: 'Operational Readiness and Discipline',              href: 'operational-readiness.html' },
+                  { label: 'Frontline Capability and Workforce Readiness',      href: 'frontline-leadership.html' },
+                  { label: 'Equipment Reliability and Maintenance Performance', href: 'equipment-reliability.html' },
+                  { label: 'Supply Chain and Distribution Performance',         href: 'supply-chain.html' },
+                ]},
               ],
             },
             {
@@ -331,23 +333,16 @@ function SiteHeader() {
             transition: 'opacity 180ms ease, transform 180ms ease',
             display: 'grid', gridTemplateColumns: '1fr 1fr',
           }}>
-            {/* Left col */}
+            {/* Left col — primary nav */}
             <div style={{ padding: '28px 28px 32px', borderRight: `1px solid ${NC.gray100}`, display: 'flex', flexDirection: 'column', gap: 4 }}>
               {RESULTS_LEFT.topLinks.map((l, i) => <NMegaLink key={i} href={l.href}>{l.label}</NMegaLink>)}
-              <div style={{ height: 16 }} />
-              <div style={{ fontSize: 14, fontWeight: 400, color: NC.navy, fontFamily: FONT, padding: '7px 0', marginBottom: 2 }}>
-                {RESULTS_LEFT.groupLabel}
-              </div>
-              {RESULTS_LEFT.subLinks.map((l, i) => <NMegaSubLink key={i} href={l.href}>{l.label}</NMegaSubLink>)}
             </div>
-            {/* Right col */}
+            {/* Right col — Expertise Areas */}
             <div style={{ padding: '28px 28px 32px', display: 'flex', flexDirection: 'column', gap: 4 }}>
-              {RESULTS_RIGHT.map((l, i) => (
-                <React.Fragment key={i}>
-                  <NMegaLink href={l.href}>{l.label}</NMegaLink>
-                  {i < RESULTS_RIGHT.length - 1 && <div style={{ height: 8 }} />}
-                </React.Fragment>
-              ))}
+              <div style={{ fontSize: 14, fontWeight: 400, color: NC.navy, fontFamily: FONT, padding: '7px 0', marginBottom: 2 }}>
+                {RESULTS_RIGHT.groupLabel}
+              </div>
+              {RESULTS_RIGHT.subLinks.map((l, i) => <NMegaSubLink key={i} href={l.href}>{l.label}</NMegaSubLink>)}
             </div>
           </div>
         </div>
@@ -448,8 +443,8 @@ function SiteFooter() {
         {/* Results */}
         <div>
           <NFooterColHeader>Results</NFooterColHeader>
-          <NFooterLink href="our-approach.html">Our Approach</NFooterLink>
-          <NFooterLink href="operational-readiness.html">Expertise Areas</NFooterLink>
+          <NFooterLink href="approach.html">Approach</NFooterLink>
+          <NFooterLink href="discovery-process.html">Discovery Process</NFooterLink>
           <NFooterLink href="industries-served.html">Industries Served</NFooterLink>
           <NFooterLink href="case-studies.html">Case Studies</NFooterLink>
         </div>

@@ -108,16 +108,21 @@ Once live, publishing a new case study or insight in WordPress automatically pro
 ---
 | Page | File | Type | Status |
 |---|---|---|---|
-| Homepage | index.html | Static | ✅ Live v0.1.4 |
-| Case Study Library | powers-case-study-library.html | Static | ✅ Live v0.1.4 |
-| Operational Readiness | — | Static | Pending |
-| Frontline Capability | — | Static | Pending |
-| Equipment Reliability | — | Static | Pending |
-| Supply Chain Performance | — | Static | Pending |
-| Results / Case Studies | powers-case-study-library.html | Static HTML | ✅ Built |
-| Insights / Blog | — | Dynamic (WPGraphQL) | Pending |
-| About | — | Static | Pending |
-| Contact | — | Static | Pending |
+| Homepage | index.html | Static | ✅ Live v0.1.17 |
+| Case Studies | case-studies.html | Static | ✅ Live v0.1.17 |
+| History | history.html | Static | ✅ Live v0.1.17 |
+| Careers | careers.html | Static | ✅ Live v0.1.17 |
+| Approach | approach.html | Static | ✅ Live v0.1.17 |
+| Discovery Process | discovery-process.html | Static | ✅ Live v0.1.17 |
+| Operational Readiness | operational-readiness.html | Static skeleton | Pending content |
+| Frontline Leadership | frontline-leadership.html | Static skeleton | Pending content |
+| Equipment Reliability | equipment-reliability.html | Static skeleton | Pending content |
+| Supply Chain | supply-chain.html | Static skeleton | Pending content |
+| Industries Served | industries-served.html | Static skeleton | Pending content |
+| Insights | insights.html | Static skeleton (will be Dynamic WPGraphQL in Faust build) | Pending content |
+| Leadership | leadership.html | Static skeleton | Pending content |
+| Company News | company-news.html | Static skeleton | Pending content |
+| Contact | contact.html | Static skeleton | Pending content |
 | 404 | — | Static | Pending |
 
 ---
@@ -125,17 +130,19 @@ Once live, publishing a new case study or insight in WordPress automatically pro
 ## Component Index
 | Component | File | Status |
 |---|---|---|
-| Header + Navigation | POWERS v2.html | ✅ Approved |
-| Hero Section | POWERS v2.html | ✅ Approved |
-| Section 2 — The Moment | POWERS v2.html | ✅ Built |
-| Section 3 — What POWERS Does | POWERS v2.html | ✅ Built |
-| Section 4 — Four Expertise Areas | POWERS v2.html | ✅ Built |
-| Section 5 — How We Work | POWERS v2.html | ✅ Built |
-| Section 6 — Results Entry Point | POWERS v2.html | ✅ Built |
-| Section 7 — Insights Entry Point | POWERS v2.html | ✅ Built |
-| Section 8 — Footer CTA | POWERS v2.html | ✅ Built |
-| Footer | POWERS v2.html | ✅ Built |
-| Case Study Library | powers-case-study-library.html | ✅ Built |
+| Header + Navigation | site-nav.jsx | ✅ Approved (Approach + Discovery Process in left mega col) |
+| Approach page | approach.html | ✅ Built v0.1.17 |
+| Discovery Process page | discovery-process.html | ✅ Built v0.1.17 |
+| Hero Section | index.html | ✅ Approved |
+| Section 2 — The Moment | index.html | ✅ Built |
+| Section 3 — What POWERS Does | index.html | ✅ Built |
+| Section 4 — Four Expertise Areas | index.html | ✅ Built |
+| Section 5 — How We Work | index.html | ✅ Built |
+| Section 6 — Results Entry Point | index.html | ✅ Built |
+| Section 7 — Insights Entry Point | index.html | ✅ Built |
+| Section 8 — Footer CTA | index.html | ✅ Built |
+| Footer | site-nav.jsx | ✅ Built |
+| Case Study Library | case-studies.html | ✅ Built |
 | Client Logo Bar | — | Pending |
 | Insights Entry Cards | — | Pending |
 
@@ -233,6 +240,20 @@ Once live, publishing a new case study or insight in WordPress automatically pro
 ## Version Log
 
 ## Version Log
+
+### v0.1.17 — 2026-05-06
+**Deploy 17 — Approach + Discovery Process page pair**
+- New `approach.html` built end-to-end against the Method copy-and-specs document. 9 sections: Hero (navy, no CTA, gold hairline rule + read-on chevron), The Gap (white centered 720px), The Mechanism (navy-50 tint, 2-col split, four discipline blocks with gold numerals 01-04 + gray-100 hairline rules), Performance Arc (white, five-stage horizontal arc with continuous gold-400 spine connecting cards via 12px gold dots, vertical-stack on mobile), The Engagement (navy-800 with inline CTA "See how the engagement runs →" linked to discovery-process.html, gold rules above and below), Four Expertise Areas (white, 2x2 card grid with gold-eyebrow + navy-800 H3 + gold hover border), Durability (navy-50 tint, single-column rhetoric block ending on "moment."), Proof (white, three case study card row with image placeholders), CTA (navy-800, gold hairline + phone/email/button stack)
+- New `discovery-process.html` built end-to-end. 9+1 sections: Hero (navy, 60vh), The Starting Point (white 720px), Multi-site Discovery aside (navy-50 tint, tight padding, with inline contact link), Three Opportunity Areas (white, three-column white-card grid with gold left-border list items + Cost-of-Leaving consequences callout), Week One (white, 45/55 split with navy-50 output sub-block), Week Two (navy-50, mirrored split with on-tint white output sub-block + thread-tie line about multi-site), Five Deliverables (white, 5-row stacked list with 64px gold-400 numerals + gray-100 hairlines), Skin in the Game (navy-800, three-stat row with gold dividers), Phases Two and Three (white, two-column Implementation / Evaluate ROI & Savings split with gold-bordered list items), CTA (navy-800)
+- Editorial conventions enforced on both pages per spec: no em-dashes (periods/commas/colons only — page titles and OG titles use periods, not em-dashes), no "facility/facilities" (only "site/sites"), no "culture" used as a soft-register noun, no possessive "Our" in nav labels (page is "Approach" not "Our Approach", "Discovery Process" not "Our Discovery Process"), sentence case throughout (proper nouns: Discovery, Implementation, Evaluate ROI & Savings, Management Operating System, Project Savings Commitment, Key Event Schedule)
+- Typography QC applied: `text-wrap: balance` on h1/h2/h3/.pw-eyebrow, `text-wrap: pretty` on body p/li, `.hero-headline br` suppressed below 767px
+- All right-arrow glyphs are true Unicode → (HTML entity `&rarr;`), not hyphen-greater-than
+- Results mega menu restructured sitewide: left column now reads "Approach | Discovery Process | Industries Served | Case Studies" — retired "Our Approach" label and `our-approach.html` slug everywhere
+- `our-approach.html` deleted from project root
+- Sitewide find-and-replace applied across 13 files (index.html, case-studies.html, history.html, careers.html, company-news.html, contact.html, equipment-reliability.html, frontline-leadership.html, industries-served.html, insights.html, leadership.html, operational-readiness.html, supply-chain.html) plus shared site-nav.jsx, covering: RESULTS_LEFT.topLinks data, mobile drawer items, MegaLink desktop nav, FooterLink/NFooterLink references, and the homepage "See What That Looks Like in Practice →" link target
+- Sitewide link audit: 0 broken internal links, 0 root-relative paths, 0 references to "our-approach.html" or label "Our Approach" remain across all 16 files
+- Version stamps bumped to v0.1.17 on index.html, case-studies.html (no stamp present), history.html, careers.html, approach.html, discovery-process.html
+- CLAUDE.md page index and component index updated to reflect new approved pages
 
 ### v0.1.16 — 2026-05-06
 **Deploy 16 — Typography Quality Control implementation**

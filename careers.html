@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Careers — POWERS Manufacturing Performance Consulting v0.1.16</title>
+  <title>Careers — POWERS Manufacturing Performance Consulting v0.1.17</title>
   <meta name="description" content="POWERS consultants work on the floor, in the shifts, inside the operations where performance breaks down. If you want to make a real difference in American manufacturing, this is where that work happens." />
   <link rel="stylesheet" href="https://use.typekit.net/dhv8kja.css" />
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -154,7 +154,8 @@ const NC = {
 /* ── NAV DATA ── */
 const RESULTS_LEFT = {
   topLinks: [
-    { label: 'Our Approach', href: 'our-approach.html' },
+    { label: 'Approach',          href: 'approach.html' },
+    { label: 'Discovery Process', href: 'discovery-process.html' },
   ],
   groupLabel: 'Expertise Areas',
   subLinks: [
@@ -319,7 +320,8 @@ function NDrawer({ open, onClose }) {
             {
               label: 'Results',
               items: [
-                { type: 'link', label: 'Our Approach', href: 'our-approach.html' },
+                { type: 'link', label: 'Approach',          href: 'approach.html' },
+                { type: 'link', label: 'Discovery Process', href: 'discovery-process.html' },
                 { type: 'group', label: 'Expertise Areas', children: [
                   { label: 'Operational Readiness and Discipline',            href: 'operational-readiness.html' },
                   { label: 'Frontline Capability and Workforce Readiness',    href: 'frontline-leadership.html' },
@@ -584,7 +586,8 @@ function SiteFooter() {
         {/* Results */}
         <div>
           <NFooterColHeader>Results</NFooterColHeader>
-          <NFooterLink href="our-approach.html">Our Approach</NFooterLink>
+          <NFooterLink href="approach.html">Approach</NFooterLink>
+          <NFooterLink href="discovery-process.html">Discovery Process</NFooterLink>
           <NFooterLink href="operational-readiness.html">Expertise Areas</NFooterLink>
           <NFooterLink href="industries-served.html">Industries Served</NFooterLink>
           <NFooterLink href="case-studies.html">Case Studies</NFooterLink>

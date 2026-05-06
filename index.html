@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>POWERS — v0.1.16</title>
+  <title>POWERS — v0.1.17</title>
   <meta name="description" content="POWERS Manufacturing Performance Consulting. We close the gap between executive intent and shop floor performance — building systems, processes, and leadership behaviors that make improvement stick." />
   <meta property="og:title" content="POWERS — Manufacturing Performance Consulting" />
   <meta property="og:description" content="POWERS closes the gap between executive intent and shop floor performance." />
@@ -92,7 +92,9 @@ function MegaMenuResults({ visible }) {
         borderRight: `1px solid ${C.gray100}`,
         display: 'flex', flexDirection: 'column', gap: 4,
       }}>
-        <MegaLink href="our-approach.html">Our Approach</MegaLink>
+        <MegaLink href="approach.html">Approach</MegaLink>
+        <div style={{ height: 8 }} />
+        <MegaLink href="discovery-process.html">Discovery Process</MegaLink>
         <div style={{ height: 16 }} />
         {/* Expertise Areas — label only, styled as nav link */}
         <div style={{
@@ -146,7 +148,9 @@ function MegaMenuResultsStatic() {
         borderRight: `1px solid ${C.gray100}`,
         display: 'flex', flexDirection: 'column', gap: 4,
       }}>
-        <MegaLink href="our-approach.html">Our Approach</MegaLink>
+        <MegaLink href="approach.html">Approach</MegaLink>
+        <div style={{ height: 8 }} />
+        <MegaLink href="discovery-process.html">Discovery Process</MegaLink>
         <div style={{ height: 16 }} />
         <div style={{
           fontSize: 14, fontWeight: 400,
@@ -396,7 +400,8 @@ function Drawer({ open, onClose }) {
 
   const sections = {
     Results: [
-      { type: 'link',  label: 'Our Approach' },
+      { type: 'link',  label: 'Approach' },
+      { type: 'link',  label: 'Discovery Process' },
       { type: 'group', label: 'Expertise Areas', children: [
         'Operational Readiness and Discipline',
         'Frontline Capability and Workforce Readiness',
@@ -656,7 +661,9 @@ function Header() {
               borderRight: `1px solid ${C.gray100}`,
               display: 'flex', flexDirection: 'column', gap: 4,
             }}>
-              <MegaLink href="our-approach.html">Our Approach</MegaLink>
+              <MegaLink href="approach.html">Approach</MegaLink>
+        <div style={{ height: 8 }} />
+        <MegaLink href="discovery-process.html">Discovery Process</MegaLink>
               <div style={{ height: 16 }} />
               <div style={{
                 fontSize: 14, fontWeight: 400,
@@ -1435,7 +1442,7 @@ function DifferentLink() {
   const [h, setH] = useState(false);
   return (
     <a
-      href="our-approach.html"
+      href="approach.html"
       onMouseEnter={() => setH(true)}
       onMouseLeave={() => setH(false)}
       style={{
@@ -1991,7 +1998,8 @@ function Footer() {
         {/* Col 2: Results */}
         <div>
           <FooterColHeader>Results</FooterColHeader>
-          <FooterLink href="our-approach.html">Our Approach</FooterLink>
+          <FooterLink href="approach.html">Approach</FooterLink>
+          <FooterLink href="discovery-process.html">Discovery Process</FooterLink>
           <FooterLink href="operational-readiness.html">Expertise Areas</FooterLink>
           <FooterLink href="industries-served.html">Industries Served</FooterLink>
           <FooterLink href="case-studies.html">Case Studies</FooterLink>
@@ -2087,7 +2095,7 @@ function App() {
           fontSize: 11, fontWeight: 400, color: 'rgba(255,255,255,0.20)',
           fontFamily: 'inherit', letterSpacing: '0.06em',
         }}>
-          POWERS Website Evolution — v0.1.16
+          POWERS Website Evolution — v0.1.17
         </span>
       </div>
     </div>
