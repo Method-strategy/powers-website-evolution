@@ -242,6 +242,18 @@ Once live, publishing a new case study or insight in WordPress automatically pro
 
 ## Version Log
 
+### v0.1.19 — 2026-05-06
+**Deploy 19 — Sitewide typography unification to homepage standard**
+- Established homepage as the sitewide H1/H2 standard: H1 `clamp(36px, 4.2vw, 56px)`, weight 800, line-height 1.08, **Title Case**, no terminal period; H2 `clamp(28px, 3.5vw, 44px)`, weight 800, line-height 1.1, **Title Case**
+- Retired Register B (sentence case + period punctuation) editorial convention. Register A (Title Case) is now the single sitewide standard for H1 and H2
+- `approach.html`: H1 retitled "Where Executive Intent Meets Shop Floor Execution" (terminal period dropped), `.pw-h1` and `.pw-h2` rescaled to homepage spec, all 8 inner section H2s converted to Title Case
+- `discovery-process.html`: H1 retitled "The Roadmap to Value Creation, Built in Two Weeks" (terminal period dropped), `.pw-h1` and `.pw-h2` rescaled to homepage spec, all 9 inner section H2s converted to Title Case
+- `leadership.html`: H1 retitled "The Team That Built the Architecture" (terminal period dropped), hero H1 rescaled from clamp(36-48) to clamp(36-56), CTA H2 rescaled to homepage section H2 spec, CTA H2 converted to Title Case
+- 6 bio pages (randall-powers, sean-hart, saul-bautista, ken-wiesinger, justin-pethick, kevin-sabany): shared CTA H2 rescaled and converted to Title Case
+- Editorial convention update applied to CLAUDE.md: Register B retired. All future pages use Title Case for H1 and H2
+- Pending later editorial pass: history.html and careers.html already use Title Case so no copy retitling needed there, but H1/H2 scale will be unified in a separate deploy if needed
+- Version stamps bumped to v0.1.19 across all 12 active content files
+
 ### v0.1.18 — 2026-05-06
 **Deploy 18 — Leadership page + bios**
 - New `leadership.html` built: hero (navy, 50vh, eyebrow + sentence-case H1 "The team that built the architecture." + subhead + gold rule), 6-card grid (3-col desktop, 2-col tablet, 1-col mobile) scaled to 880px max-width container with 28px gap, smaller card text (18px name / 12.5px title), Connect on LinkedIn link with LinkedIn glyph icon below each card except Randall, sitewide CTA at bottom
