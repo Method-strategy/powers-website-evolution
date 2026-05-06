@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leadership | POWERS v0.1.19</title>
+  <title>Leadership | POWERS v0.2.0</title>
   <meta name="description" content="POWERS leadership comes from inside manufacturing operations. Practitioners who have run plants and operations before they became consultants." />
   <link rel="stylesheet" href="https://use.typekit.net/dhv8kja.css" />
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -37,11 +37,11 @@
     .pw-section-inner { max-width:1280px; margin:0 auto; padding:96px 48px; }
 
     /* Hero */
-    .lead-hero { background:#183a61; min-height:50vh; display:flex; align-items:center; }
-    .lead-hero-inner { max-width:1100px; margin:0 auto; padding:96px 48px; width:100%; }
+    .lead-hero { background:#183a61; }
+    .lead-hero-inner { max-width:1280px; margin:0 auto; padding:120px 48px; width:100%; min-height:600px; display:flex; flex-direction:column; justify-content:center; }
     .lead-hero h1 { font-size:clamp(36px,4.2vw,56px); font-weight:800; line-height:1.08; color:#ffffff; letter-spacing:-0.01em; max-width:920px; }
-    .lead-hero p.subhead { font-size:18px; font-weight:300; line-height:1.5; color:rgba(255,255,255,0.90); margin-top:24px; max-width:60ch; }
-    .lead-hero hr.gold-rule { width:80px; height:1px; background:#eabb71; border:0; margin-top:32px; }
+    .lead-hero p.subhead { font-size:clamp(17px,1.5vw,22px); font-weight:300; line-height:1.5; color:rgba(255,255,255,0.90); margin-top:28px; max-width:60ch; text-wrap:balance; }
+    .lead-hero hr.gold-rule { width:80px; height:1px; background:#eabb71; border:0; margin-top:64px; }
 
     /* Grid — scaled down ~20% from prior 1100px container */
     .lead-grid-section { background:#ffffff; }
@@ -81,8 +81,7 @@
       .lead-grid { grid-template-columns:1fr; gap:36px; }
       .lead-grid-inner, .lead-cta-inner, .lead-hero-inner { padding-left:24px; padding-right:24px; }
       .lead-grid-inner, .lead-cta-inner { padding-top:64px; padding-bottom:64px; }
-      .lead-hero { min-height:40vh; }
-      .lead-hero-inner { padding-top:64px; padding-bottom:64px; }
+      .lead-hero-inner { padding-top:64px; padding-bottom:64px; min-height:0; }
     }
   </style>
 </head>
@@ -94,7 +93,7 @@
 <section class="lead-hero">
   <div class="lead-hero-inner">
     <div class="pw-eyebrow">Leadership</div>
-    <h1 class="hero-headline">The Team That Built the Architecture</h1>
+    <h1 class="hero-headline">The Team That Built<br/>the Architecture</h1>
     <p class="subhead">POWERS leadership comes from inside manufacturing operations. Plant floors, production lines, finance functions, and the rooms where operating decisions get made under real pressure. Not advisors who studied the work. Practitioners who did it.</p>
     <hr class="gold-rule" />
   </div>

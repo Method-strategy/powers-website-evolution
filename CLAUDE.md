@@ -58,6 +58,26 @@
 **Font:** Proxima Nova via Adobe Fonts (Typekit ID: dhv8kja)
 **Fallback:** -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Arial, sans-serif
 
+### Hero Standard (sitewide — applies to all internal pages except homepage and bio pages)
+
+| Token | Spec |
+|---|---|
+| Container outer | `<section style="background:#183a61">` (navy-800) |
+| Container inner | `max-width:1280px; margin:0 auto; padding:120px 48px; min-height:600px; display:flex; flex-direction:column; justify-content:center;` |
+| Eyebrow | 12px / weight 500 / 0.18em / uppercase / gold-400 #eabb71 / margin-bottom 24px |
+| H1 | `clamp(36px, 4.2vw, 56px)` / weight 800 / line-height 1.08 / letter-spacing -0.01em / white / `text-wrap: balance` / Title Case / no terminal period unless headline contains an internal comma |
+| Subhead | `clamp(17px, 1.5vw, 22px)` / weight 300 / line-height 1.5 / `rgba(255,255,255,0.90)` / max-width 60ch / margin-top 28px / `text-wrap: pretty` |
+| Gold rule | 80px × 1px / #eabb71 / margin-top 64px |
+
+**Rules:**
+- Never use `min-height: Nvh` on heroes. Always fixed `min-height: 600px`.
+- Never override H1 or subhead font-size, line-height, opacity, or max-width below this spec without justification documented in the version log.
+- The gold rule below the subhead is required on every internal page hero. Without it, the hero reads incomplete.
+- If a subhead produces a 1–2 word orphan on the last line at 60ch, switch that page's subhead to `text-wrap: balance` (rather than `pretty`) before adjusting max-width.
+- For multi-line H1s, use a deliberate `<br/>` at the natural typographic break and ensure the page has the mobile media query: `@media (max-width: 767px) { .hero-headline br { display: none; } }`
+
+**Exemptions:** Homepage (uses video-overlay hero with dual CTAs); 6 bio pages (use 32fr/68fr split layout).
+
 ### Absolute Rules
 1. H2/subheads = Navy-400 (#4a6a8a). Never Navy-800. Ever.
 2. Gold is decorative at small scale — eyebrows, rules, borders, icons only. Not body text.
@@ -240,7 +260,23 @@ Once live, publishing a new case study or insight in WordPress automatically pro
 
 ## Version Log
 
-## Version Log
+### v0.2.0 — 2026-05-06
+**Deploy 20 — Sitewide hero standardization (Hero Standard locked)**
+- All internal page heroes now snap to a single hero token spec, with Approach as the canonical reference. The four "Hero Standard" tokens, applied identically across all 13 internal pages:
+  - **Container:** `min-height: 600px`, `padding: 120px 48px`, `display: flex; flex-direction: column; justify-content: center`, max-width 1280px inner wrapper
+  - **Eyebrow:** 12px / weight 500 / 0.18em tracking / uppercase / gold-400 #eabb71 / margin-bottom 24px
+  - **H1:** `clamp(36px, 4.2vw, 56px)` / weight 800 / line-height 1.08 / letter-spacing -0.01em / white / `text-wrap: balance`
+  - **Subhead:** `clamp(17px, 1.5vw, 22px)` / weight 300 / line-height 1.5 / `rgba(255,255,255,0.90)` / max-width 60ch / margin-top 28px / `text-wrap: pretty`
+  - **Gold rule:** 80px × 1px / #eabb71 / margin-top 64px
+- Retired `min-height: 70vh` and `min-height: 60vh` from all heroes. Fixed pixel `min-height: 600px` replaces viewport-relative heights so hero depth is consistent across all monitor sizes (a 1920×1080 desktop and a 1366×768 laptop now show identically depth heroes)
+- Retired the case-studies page's nonstandard hero spec: H1 was `clamp(28px,4vw,44px)` / line-height 1.15 / max-width 640px / mb 16px; subhead was 15px fixed / opacity 0.70 / max-width 520px / mb 32px / no rule. All replaced with Hero Standard tokens. Eyebrow corrected from 11px / mb 16px to 12px / mb 24px
+- Retired the history.html and careers.html nonstandard hero spec: H1 was `clamp(34px,5.2vw,56px)` / max-width 780px; subhead was `clamp(16px,1.4vw,18px)` / opacity 0.80 / max-width 620px / mt 24px / no rule. All replaced with Hero Standard tokens. Hero gold rule added below subhead on both pages
+- Retired the leadership.html nonstandard hero spec: subhead was `18px` fixed / mt 24px; gold rule margin-top was 32px. All replaced with Hero Standard tokens. H1 wrapped to two lines via deliberate `<br/>` after "Built" for visual pairing with multi-line subhead. Mobile media query (`@media (max-width: 767px) { .hero-headline br { display: none } }`) suppresses the desktop break on phones
+- Subhead `text-wrap` set to `balance` on Leadership specifically (rather than `pretty`) because the existing copy ("...did it.") was producing a two-word orphan on the last line at 60ch. `balance` redistributes all lines so they read as four roughly-equal lines with no orphan
+- All 12 retrofitted pages now match Approach hero exactly: approach.html (template, baseline reference), discovery-process.html, leadership.html, history.html, careers.html, case-studies.html, operational-readiness.html, frontline-leadership.html, equipment-reliability.html, supply-chain.html, industries-served.html, insights.html, company-news.html, contact.html
+- Homepage and 6 bio pages exempted from the retrofit per scope. Homepage uses its own video-overlay hero treatment with dual CTAs. Bio pages use a 32fr/68fr split layout that does not follow Hero Standard. These exceptions are documented and intentional
+- Hero Standard added to the Design System section of CLAUDE.md as a sitewide token specification, parallel to the existing Color Scale and Typography Rules tables
+- All version stamps bumped to v0.2.0 across active pages
 
 ### v0.1.19 — 2026-05-06
 **Deploy 19 — Sitewide typography unification to homepage standard**
