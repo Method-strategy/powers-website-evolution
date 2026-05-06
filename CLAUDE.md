@@ -120,7 +120,8 @@ Once live, publishing a new case study or insight in WordPress automatically pro
 | Supply Chain | supply-chain.html | Static skeleton | Pending content |
 | Industries Served | industries-served.html | Static skeleton | Pending content |
 | Insights | insights.html | Static skeleton (will be Dynamic WPGraphQL in Faust build) | Pending content |
-| Leadership | leadership.html | Static skeleton | Pending content |
+| Leadership | leadership.html | Static | ✅ Live v0.1.18 |
+| Leadership Bios (6) | randall-powers.html, sean-hart.html, saul-bautista.html, ken-wiesinger.html, justin-pethick.html, kevin-sabany.html | Static | ✅ Live v0.1.18 |
 | Company News | company-news.html | Static skeleton | Pending content |
 | Contact | contact.html | Static skeleton | Pending content |
 | 404 | — | Static | Pending |
@@ -240,6 +241,16 @@ Once live, publishing a new case study or insight in WordPress automatically pro
 ## Version Log
 
 ## Version Log
+
+### v0.1.18 — 2026-05-06
+**Deploy 18 — Leadership page + bios**
+- New `leadership.html` built: hero (navy, 50vh, eyebrow + sentence-case H1 "The team that built the architecture." + subhead + gold rule), 6-card grid (3-col desktop, 2-col tablet, 1-col mobile) scaled to 880px max-width container with 28px gap, smaller card text (18px name / 12.5px title), Connect on LinkedIn link with LinkedIn glyph icon below each card except Randall, sitewide CTA at bottom
+- 6 individual bio pages built: `randall-powers.html`, `sean-hart.html`, `saul-bautista.html`, `ken-wiesinger.html`, `justin-pethick.html`, `kevin-sabany.html`. Each page: bio hero (32fr/68fr split, photo capped at 300px max-width per scale-down request), narrow body column with full bio copy, Connect on LinkedIn link in bio-contact block (Randall has no contact block), Back to Leadership link section (vertically centered with 96px min-height + symmetric 40px padding), shared CTA
+- All direct individual email addresses removed from bio pages per editorial direction. Single firm-level email retained in shared CTA only
+- LinkedIn URLs wired: Sean (seanphart), Saul (saulbautista), Ken (kenwiesinger), Justin (justin-pethick-ab5388181), Kevin (kevin-sabany-901339174). Randall intentionally has no LinkedIn link
+- Editorial register: Leadership page H1 follows Register B (sentence case + period punctuation) matching approach.html and discovery-process.html, since those are the most senior client-approved pages and the right peer group for Leadership. History/Careers Register A retrofit deferred to a later editorial pass
+- Typography QC applied: text-wrap balance on h1/h2/h3/eyebrows, text-wrap pretty on body, 12px/0.18em/gold-400 eyebrow standard
+- All version stamps bumped to v0.1.18 across index, history, careers, approach, discovery-process, leadership, and 6 bio pages
 
 ### v0.1.17 — 2026-05-06
 **Deploy 17 — Approach + Discovery Process page pair**
