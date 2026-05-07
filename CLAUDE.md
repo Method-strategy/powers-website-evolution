@@ -164,6 +164,7 @@ Once live, publishing a new case study or insight in WordPress automatically pro
 | Section 8 — Footer CTA | index.html | ✅ Built |
 | Footer | site-nav.jsx | ✅ Built |
 | Case Study Library | case-studies.html | ✅ Built |
+| Case Study Detail Page (web + 2-page PDF) | case-study-defense-aerospace-otd.html | ✅ LOCKED v0.2.1 — template for all 67 case studies |
 | Client Logo Bar | — | Pending |
 | Insights Entry Cards | — | Pending |
 
@@ -258,7 +259,117 @@ Once live, publishing a new case study or insight in WordPress automatically pro
 
 ---
 
+## Case Study Detail Template — LOCKED v0.2.1
+
+**Reference file:** `case-study-defense-aerospace-otd.html`
+**Status:** Locked production prototype. Used as the template for all 67 case studies. Copy refresh from the master case study spreadsheet feeds directly into this scaffold; no structural changes expected. Anticipated client tweaks: logo size on the 2-page PDF; tagline lockup added next to logo once approved.
+
+### Dual-output architecture
+A single HTML file produces two outputs from the same content:
+- **Screen view** — long-scroll web page, sectioned layout, full POWERS site nav and footer
+- **2-page PDF download** — print stylesheet + dense hero variant, designed to render as exactly two letter-size pages
+
+Sections use `.screen-only` and `.print-only` classes plus `@media print` to swap between the two views. The dense hero (`data-hero="dense"`) uses CSS Grid named areas to compress hero content into a 2-column layout for print.
+
+### Section structure (web view)
+1. Site header (shared site-nav.jsx)
+2. Hero — simple variant (`.cs-hero` `data-hero="simple"`): eyebrow "Case Study · [Industry]", H1 with the headline result, subhead, gold rule
+3. The Situation (`data-row="situation"`)
+4. The Diagnosis (`data-row="diagnosis"`) — alt background
+5. What POWERS Did (`data-row="powers"`)
+6. The Full Result (`data-row="results"`) — alt background, stat tiles
+7. Bottom CTA (`.cs-cta`) — "Ready to Make Performance Stick in Your Operation?"
+8. Site footer (shared)
+
+### 2-page PDF variant
+- Print-only dense hero (`.cs-hero-dense`) replaces the screen hero via `@media print`
+- All `.screen-only` elements (header, footer, screen hero, screen sections) hidden in print
+- Print-only condensed versions of Situation/Diagnosis/What POWERS Did/Result render the same copy at print density
+- Designed to break exactly between page 1 and page 2 with no widows or short last pages
+
+### Producing the other 66 case studies
+For each of the remaining case studies:
+1. Copy `case-study-defense-aerospace-otd.html` → `case-study-[slug].html`
+2. Update `<title>` and meta description
+3. Replace eyebrow industry tag, H1 headline result, all section copy, and stat tiles with refreshed copy
+4. Leave all CSS, structural markup, hero variants, print stylesheet, and nav/footer references untouched
+5. Sitewide link audit before deploy
+
+### Pending client tweaks (acknowledged, deferred)
+- Logo size on 2-page PDF (likely larger than current)
+- Tagline lockup added next to logo once tagline copy is finalized
+
+### Faust integration notes (for the WordPress/Faust merge)
+This prototype is built as a standalone HTML demo so the client can review the case study experience in isolation. When Patrik folds this into the main Faust.js build, the following transitions apply:
+
+**The case study HTML files become a template, not a content source.** Section structure, CSS, print stylesheet, dense hero variant, and `@media print` rules all carry over verbatim. Only the copy slots get tokenized.
+
+**Field map — which HTML elements become which WP custom fields (ACF):**
+| HTML location | Field name | Type |
+|---|---|---|
+| Hero eyebrow industry tag (after "Case Study · ") | `industry` | Taxonomy term |
+| Hero H1 headline result | `headlineResult` | Text |
+| Hero subhead | `summary` | Textarea |
+| The Situation body | `situation` | WYSIWYG |
+| The Diagnosis body | `diagnosis` | WYSIWYG |
+| What POWERS Did body | `powersActions` | WYSIWYG |
+| The Full Result body | `fullResult` | WYSIWYG |
+| Stat tiles (3-up) | `statTiles` (repeater: label, value, unit) | Repeater |
+| Print-only condensed copy | derived from same fields | — |
+
+**Routing change:** Faust will serve these at `/case-studies/[slug]/`, not `/case-study-[slug].html`. The prototype's flat-file naming convention is prototype-only; no action required now.
+
+**Header/footer:** Inline React `site-nav.jsx` is replaced by the global WP/Faust nav. No content changes; just a swap of the wrapping shell.
+
+**Print stylesheet is a primary deliverable, not a nice-to-have.** The 2-page PDF download is core to the case study experience. The `@media print` rules, `.screen-only`/`.print-only` class system, and dense hero (`.cs-hero-dense`) MUST carry into the Faust build unchanged.
+
+**Search/filter wiring (handled on `case-studies.html`, NOT on detail pages):** The detail pages don't query anything themselves. The library page's card grid will swap from hardcoded cards to a WPGraphQL query (same pattern as the Insights cards on the homepage). Filter facets (Industry, Service Line, Result Type) come from WP taxonomies registered on the Case Study post type — not from the case study HTML files.
+
+```graphql
+query CaseStudyLibrary($industry: String, $serviceLine: String) {
+  caseStudies(where: {
+    taxQuery: {
+      taxArray: [
+        { taxonomy: INDUSTRY, terms: [$industry] }
+        { taxonomy: SERVICELINE, terms: [$serviceLine] }
+      ]
+    }
+  }) {
+    nodes {
+      title
+      slug
+      acfFields { headlineResult, industry, summary }
+    }
+  }
+}
+```
+
+**Order of operations for the merge:**
+1. Register `caseStudy` post type + ACF field group + `industry` / `serviceLine` / `resultType` taxonomies in WP
+2. Import all 67 case studies from the master spreadsheet as `caseStudy` posts with populated ACF fields
+3. Build the Faust template (`templates/single-caseStudy.tsx`) using the locked HTML structure with field placeholders
+4. Replace `case-studies.html` hardcoded cards with the WPGraphQL query above
+5. Verify print stylesheet renders correctly through the Faust template
+6. Set up redirects from prototype flat-file URLs to new `/case-studies/[slug]/` routes if any prototype URLs leaked into the wild
+
+---
+
 ## Version Log
+
+### v0.2.2 — 2026-05-07
+**Deploy 22 — Case study detail template locked + Faust integration notes**
+- `case-study-defense-aerospace-otd.html` is the directly-accessible standalone URL for the locked single case study prototype, sitting alongside the rest of the proto site. Client can open it independently of the rest of the site for focused review
+- New "Faust integration notes" subsection added to the locked template doc in CLAUDE.md, capturing the field map (HTML element → ACF field name → field type), routing change to `/case-studies/[slug]/`, header/footer swap, print stylesheet must carry over unchanged, and the WPGraphQL query pattern for the library page filter wiring
+- 6-step order of operations documented for Patrik's WP/Faust merge
+- All version stamps bumped from v0.2.0 to v0.2.2 across active pages (skipping v0.2.1 since v0.2.1 was a documentation-only deploy with no HTML changes)
+
+### v0.2.1 — 2026-05-07
+**Deploy 21 — Case study detail template locked**
+- `case-study-defense-aerospace-otd.html` declared the LOCKED production template for all 67 case studies (Defense & Aerospace OTD 56% → 89% as the reference build)
+- Single-file dual-output architecture: long-scroll web view + 2-page printable PDF, switched via `@media print` and `.screen-only` / `.print-only` class pairs
+- Final fix this deploy: nav responsive show/hide rules promoted to `!important` on the base `.nav-desktop` / `.nav-mobile` / `.nav-tagline` declarations to override the inline `style={{display:'flex'}}` set by site-nav.jsx — hamburger now correctly hides at desktop and the matching 900px media-query breakpoint flips correctly on mobile
+- Template documented in new "Case Study Detail Template — LOCKED v0.2.1" section above the Version Log; production workflow for the remaining 66 case studies captured there
+- Anticipated post-lock client tweaks logged but deferred: PDF logo sizing and logo+tagline lockup
 
 ### v0.2.0 — 2026-05-06
 **Deploy 20 — Sitewide hero standardization (Hero Standard locked)**
