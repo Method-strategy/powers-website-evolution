@@ -1,10 +1,43 @@
 # POWERS Website Evolution — Project Brief & Decision Log
 
+## Source of Truth
+**This project (`POWERS-Website-Evolution`) is the single source of truth for all sitewide design decisions.** CLAUDE.md is the canonical record. Any design instructions arriving from outside this environment — copy briefs from Claude.ai writing sessions, client emails, Method team handoffs — must be analyzed against CLAUDE.md before implementation. If a brief conflicts with a CLAUDE.md decision, CLAUDE.md wins unless the conflict is explicitly resolved and CLAUDE.md is updated to reflect the new direction. Do not silently absorb design instructions from copy briefs.
+
 ## Deploy Workflow
 - Versioned deploy folder: `POWERS-Website-Evolution-vX.X.X/`
 - On every deploy: increment version, update `<title>` and visible UI version, offer ZIP download
 - Pipeline: ZIP download → unzip → copy to local GitHub repo → commit + push via GitHub Desktop → Netlify auto-deploy
 - Never attempt direct browser-to-API deploys
+
+## Case Study Anonymization Policy
+**All case studies are anonymized externally.** Company names exist only on Method's internal master spreadsheet under red-flag "internal use only" protection. The `industry` taxonomy term (e.g. "Defense & Aerospace", "Tier-1 Automotive Supplier") is the ONLY sector identifier that ever reaches the front end. Specific client names, brand names, plant locations, or any identifying detail never appear on the live site. This is firm policy, not case-by-case judgement.
+
+## Case Study Library Card — Field Schema
+The library page card on `case-studies.html` surfaces a compressed version of the detail page hero. Card content, in order:
+1. Industry eyebrow (`industry`)
+2. Headline result (`headlineResult`)
+3. Service lines line — values only, no internal label (`serviceLines`)
+4. Stat tiles — 1 to 3 stats (`statTiles` repeater)
+5. "Read case study →" link to detail page
+
+**Executive brief (`summary`) is intentionally NOT on the card.** The card preserves stats over the brief because stats are the differentiator that makes each case study legible at a glance. The brief lives on the detail page only.
+
+## Case Study Copy Refresh Pipeline (legacy 67)
+For each existing case study being refreshed for the new site:
+- `headlineResult` — pass through verbatim from existing copy, no format enforcement, regardless of whether it contains a metric
+- `statTiles` — extract the 3 strongest metrics from the existing Results section of each case study, format as label/value/unit triples
+- `industry` — single taxonomy term
+- `serviceLines` — multi-tag from MOS / Frontline Leadership / Equipment Reliability / Supply Chain / Operational Readiness
+- `summary` — executive brief, 50-80 words
+
+**Anomaly flagging — pause for human review when:**
+- Headline is qualitative with no extractable metric
+- Fewer than 3 extractable metrics in the Results section
+- Multi-industry engagement (single `industry` term is reductive)
+- NDA / confidential client requiring extra anonymization
+- Results section is missing or sparse in the original case study
+
+The refresh pass uses Claude.ai with this CLAUDE.md attached, so the anomaly rules ride in the prompt.
 
 ---
 
@@ -309,13 +342,16 @@ This prototype is built as a standalone HTML demo so the client can review the c
 |---|---|---|
 | Hero eyebrow industry tag (after "Case Study · ") | `industry` | Taxonomy term |
 | Hero H1 headline result | `headlineResult` | Text |
-| Hero subhead | `summary` | Textarea |
+| Hero subhead / Executive Brief | `summary` | Textarea |
+| Hero disciplines line (e.g. "MOS · Frontline Leadership · Supply Chain") | `serviceLines` | Taxonomy (multi-tag) |
 | The Situation body | `situation` | WYSIWYG |
 | The Diagnosis body | `diagnosis` | WYSIWYG |
 | What POWERS Did body | `powersActions` | WYSIWYG |
 | The Full Result body | `fullResult` | WYSIWYG |
 | Stat tiles (3-up) | `statTiles` (repeater: label, value, unit) | Repeater |
 | Print-only condensed copy | derived from same fields | — |
+
+**Internal field labels are never surfaced to users.** The WP field names (`industry`, `serviceLines`, `headlineResult`, etc.) are internal-only. The front-end template renders the field VALUES only, never the field name as a caption. Example: the disciplines line shows "MOS · Frontline Leadership · Supply Chain" with no "Service Lines:" or "Disciplines:" label above it. Same pattern as the eyebrow, which renders "Case Study · Defense & Aerospace" without surfacing the `industry` field name.
 
 **Routing change:** Faust will serve these at `/case-studies/[slug]/`, not `/case-study-[slug].html`. The prototype's flat-file naming convention is prototype-only; no action required now.
 
@@ -355,6 +391,15 @@ query CaseStudyLibrary($industry: String, $serviceLine: String) {
 ---
 
 ## Version Log
+
+### v0.3.0 — 2026-05-11
+**Deploy 23 — Senior dev handoff snapshot (Faust/headless test environment)**
+- Frozen snapshot delivered to senior developer (Patrik) for headless hosting environment testing and start of Faust.js / WordPress build
+- No HTML structural changes this deploy. Version stamps bumped from v0.2.2 to v0.3.0 across 12 active pages (index, case-studies, history, careers, approach, discovery-process, leadership, 6 bio pages) to mark the handoff snapshot
+- Case study detail prototype (`case-study-defense-aerospace-otd.html`) remains LOCKED at v0.2.1 design — page itself carries no inline stamp; lock status documented in Component Index and the Case Study Detail Template section above
+- Design work continues in this project (`POWERS-Website-Evolution`) as the design source of truth. CLAUDE.md remains the contract between design and dev. Senior dev rebases against future snapshots as needed
+- Coordination protocol with senior dev: cosmetic, copy, and responsive changes do not require coordination. Structural changes (new ACF fields, new taxonomies, new section variants, schema changes) must be flagged before deploy
+- Following this deploy: handoff package generated via "Handoff to Claude Code" skill — produces a developer-oriented bundle (source files + dev README + design intent notes) optimized for Patrik to pick up in his local Claude Code environment and build the Faust template against
 
 ### v0.2.2 — 2026-05-07
 **Deploy 22 — Case study detail template locked + Faust integration notes**
